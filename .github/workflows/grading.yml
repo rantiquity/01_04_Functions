@@ -61,15 +61,15 @@ jobs:
           errors <- sum(results_df$error, na.rm = TRUE)
           warnings <- sum(results_df$warning, na.rm = TRUE)
           skipped <- sum(results_df$skipped, na.rm = TRUE)
-          passed <- nrow(results_df) - failed - errors - warnings - skipped
+          passed <- sum(results_df$passed, na.rm = TRUE)
 
           cat("\n")
           cat("=====================================\n")
           cat(sprintf(
-            "[ PASS %d | FAIL %d | WARN %d | SKIP %d ]\n",
-            passed, failed, warnings, skipped
-          ))
-
+            "[ PASS %d | FAIL %d | ERROR %d | WARN %d | SKIP %d ]\n",
+               passed, failed, errors, warnings, skipped
+             ))
+             
           if (failed == 0 && errors == 0) {
             cat("🎉 Отлично! Все проверки успешно пройдены.\n")
           } else {
